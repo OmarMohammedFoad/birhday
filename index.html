@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <title>BirthdayOS Secure 💜</title>
+
+   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Courier+Prime&display=swap"
+      rel="stylesheet">
+
+   <style>
+      * {
+         box-sizing: border-box;
+      }
+
+      body {
+         margin: 0;
+         height: 100vh;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         background: linear-gradient(135deg, #ff4e91, #ff9a8b, #ffd166, #c77dff);
+         background-size: 400% 400%;
+         animation: gradientMove 10s ease infinite;
+         overflow: hidden;
+         font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      }
+
+      @keyframes gradientMove {
+         0% {
+            background-position: 0% 50%;
+         }
+
+         50% {
+            background-position: 100% 50%;
+         }
+
+         100% {
+            background-position: 0% 50%;
+         }
+      }
+
+      /* Floating Cats */
+      .cat {
+         position: absolute;
+         font-size: 22px;
+         animation: float 15s linear infinite;
+         opacity: 0.6;
+      }
+
+      @keyframes float {
+         0% {
+            transform: translateY(100vh) rotate(0deg);
+         }
+
+         100% {
+            transform: translateY(-10vh) rotate(360deg);
+         }
+      }
+
+      /* Phone Container */
+      .phone {
+         width: 100%;
+         max-width: 380px;
+         height: 95vh;
+         max-height: 720px;
+         background: rgba(255, 255, 255, 0.15);
+         backdrop-filter: blur(25px);
+         border-radius: 40px;
+         padding: 20px;
+         position: relative;
+         box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+         overflow: hidden;
+      }
+
+      .notch {
+         width: 140px;
+         height: 25px;
+         background: black;
+         border-radius: 20px;
+         position: absolute;
+         top: 8px;
+         left: 50%;
+         transform: translateX(-50%);
+      }
+
+      /* Password Screen */
+      .lock-screen {
+         text-align: center;
+         margin-top: 120px;
+         color: white;
+      }
+
+      .lock-screen h2 {
+         font-family: 'Playfair Display', serif;
+      }
+
+      input {
+         padding: 12px;
+         border-radius: 15px;
+         border: none;
+         width: 80%;
+         margin-top: 20px;
+         font-size: 16px;
+         text-align: center;
+      }
+
+      button {
+         margin-top: 15px;
+         padding: 10px 20px;
+         border-radius: 15px;
+         border: none;
+         background: #ff4e91;
+         color: white;
+         font-size: 16px;
+         cursor: pointer;
+      }
+
+      /* App Content */
+      .app {
+         display: none;
+         margin-top: 20px;
+      }
+
+      .header {
+         display: flex;
+         flex-direction: row;
+         text-align: center;
+         align-items: center;
+         justify-content: center;
+         font-family: 'Playfair Display', serif;
+         color: white;
+         font-size: 22px;
+      }
+
+      .header img {
+         width: 100px;
+         height: 100px;
+         margin-left: 10px;
+         border-radius: 50%;
+         contain: "cover";
+      }
+
+      .terminal {
+         margin-top: 20px;
+         background: rgba(0, 0, 0, 0.85);
+         color: #00ff88;
+         padding: 15px;
+         border-radius: 20px;
+         font-family: 'Courier Prime', monospace;
+         font-size: 13px;
+         height: 50vh;
+         overflow-y: auto;
+         scrollbar-width: none;
+
+      }
+
+      .footer {
+         text-align: center;
+         color: white;
+         margin-top: 10px;
+      }
+
+      @media (max-width: 400px) {
+         .terminal {
+            font-size: 12px;
+         }
+      }
+   </style>
+</head>
+
+<body>
+
+   <!-- Floating Cats -->
+   <div class="cat" style="left:5%; animation-delay:0s;">🐱</div>
+   <div class="cat" style="left:30%; animation-delay:5s;">🐾</div>
+   <div class="cat" style="left:60%; animation-delay:2s;">🐱</div>
+   <div class="cat" style="left:85%; animation-delay:8s;">🐾</div>
+
+   <div class="phone">
+      <div class="notch"></div>
+
+      <!-- LOCK SCREEN -->
+      <div class="lock-screen" id="lockScreen">
+         <h2>Private Build 💜</h2>
+         <p>Enter access key TOP SECRET</p>
+         <p id="hint"> HINT:Its Your Name</p>
+         <input type="password" id="passwordInput" placeholder="••••••••">
+         <br>
+         <button onclick="checkPassword()">Unlock</button>
+      </div>
+
+      <!-- APP -->
+      <div class="app" id="appContent">
+         <div class="header">
+            <span>🎉 Happy Birthday!!!</span>
+            <img src="/pic.webp" alt="">
+         </div>
+         <div class="terminal" id="terminal"></div>
+         <div class="footer">☕ Stay Iced. Stay Brilliant.</div>
+      </div>
+   </div>
+
+   <script>
+      const correctPassword = "sarah"; // CHANGE THIS
+
+      function checkPassword() {
+         const input = document.getElementById("passwordInput").value;
+         if (input.toLowerCase() === correctPassword.toLowerCase()) {
+            document.getElementById("lockScreen").style.display = "none";
+
+            document.getElementById("appContent").style.display = "block";
+            typeWriter();
+         } else {
+            alert("Wrong password 😼");
+         }
+      }
+
+      const text = `
+$ access granted...
+$ loading birthday protocol...
+$ subject detected: brilliant iOS developer 🍎
+$ preferences:
+   ✔ cats 🐱
+   ✔ iced coffee 🧋
+   ✔ vintage soul ✨
+
+Happy Birthday 💜
+
+May your commits be clean,
+your animations smooth ,
+and your coffee always perfectly iced.
+
+You deserve the softest happiness
+and the brightest year ahead.
+
+> built_with_love
+`;
+
+      let i = 0;
+      function typeWriter() {
+         const terminal = document.getElementById("terminal");
+         const speed = 30;
+         if (i < text.length) {
+            terminal.innerHTML += text.charAt(i);
+
+            // new line each time we hit a newline character
+
+            if (text.charAt(i) === '\n') {
+               terminal.innerHTML += '<br>';
+               terminal.scrollTop = terminal.scrollHeight;
+            }
+            i++;
+            setTimeout(typeWriter, speed);
+         }
+      }
+   </script>
+
+</body>
+
+</html>
